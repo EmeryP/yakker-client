@@ -10,7 +10,7 @@ Using socket.io to create a twitter like chat app but with much fewer features.
 ### Local Setup
 * Fork and clone this repo to your local machine
 * Run an `npm install` from the root directory
-* Run `npm start` to fire up the client in the brower. Before this will work you'll need to start the server on your local machine by following the directions found in the README here: [GiHub back-end repo](https://github.com/EmeryP/yakker-server).
+* Run `npm start` to fire up the client in the brower. Before this will work you'll need to start the server on your local machine by following the directions found in the README here: [GitHub back-end repo](https://github.com/EmeryP/yakker-server).
 * At this point you can start chatting with any other client connected to your server.
 
 #### UML

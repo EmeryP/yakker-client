@@ -15,8 +15,8 @@ class Trolling extends React.Component {
       chatHistory: []
     };
 
-    socket.on('incoming', payload => this.updateWords(payload));
-    socket.on('outgoing', payload => this.updateWords(payload));
+    socket.on('incoming', payload => this.updateWords('Incoming message... ' + payload));
+    socket.on('outgoing', payload => this.updateWords('Your message... ' + payload));
   }
 
   updateWords = (words) => {
@@ -31,7 +31,7 @@ class Trolling extends React.Component {
   handleSubmit = event => {
     event.preventDefault();
     socket.emit('troll', this.state.typedInput);
-    // this.typedInput.value = '';
+    (this.refs.inputField).value = "";
   };
 
   handleNewWords = event => {
@@ -44,6 +44,7 @@ class Trolling extends React.Component {
         <h2>Send a message!</h2>
         <form onSubmit={this.handleSubmit}>
           <input
+            ref='inputField'
             name="typedInput"
             placeholder="Your message..."
             onChange={this.handleNewWords}

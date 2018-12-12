@@ -5,27 +5,33 @@ const url = 'http://localhost:3000';
 // const url = 'https://js-401-socket-io-server.herokuapp.com';
 const socket = io.connect(url);
 
-let chatHistory = [];
+
 class Trolling extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       typedInput: '',
-      words: ''
+      words: '',
+      chatHistory: []
     };
 
     socket.on('incoming', payload => this.updateWords(payload));
+    socket.on('outgoing', payload => this.updateWords(payload));
   }
 
   updateWords = (words) => {
-    this.setState({ words });
-    chatHistory.push(words)
-    console.log(chatHistory, 'chat history')
+
+    if(this.state.chatHistory.length > 15){
+      this.state.chatHistory = this.state.chatHistory.slice(1, 14);
+    }
+
+    this.setState({ words, chatHistory: this.state.chatHistory.concat(words) });
   };
 
   handleSubmit = event => {
     event.preventDefault();
     socket.emit('troll', this.state.typedInput);
+    // this.typedInput.value = '';
   };
 
   handleNewWords = event => {
@@ -35,17 +41,17 @@ class Trolling extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <h2>{this.state.words}</h2>
+        <h2>Send a message!</h2>
         <form onSubmit={this.handleSubmit}>
           <input
             name="typedInput"
-            placeholder="New Words"
+            placeholder="Your message..."
             onChange={this.handleNewWords}
           />
         </form>
         <ul>
-          {chatHistory.map((message, idx) => (
-            <li content={message}>h</li>
+          {this.state.chatHistory.map( (message) => (
+              <li>{message}</li>
           ))}
         </ul>
       </React.Fragment>

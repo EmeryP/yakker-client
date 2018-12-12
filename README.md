@@ -14,7 +14,7 @@ Using socket.io to create a twitter like chat app but with much fewer features.
 * At this point you can start chatting with any other client connected to your server.
 
 #### UML
-Link to an image of the UML for your application and response to events
+[Socket.io UML](/assets/socketio.jpg)
 
 ### Author: 
 Emery Parks
